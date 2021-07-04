@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click by Dilip</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .gallery {
+
+        color: black;
+        background-color: white;
+        height: 600px;
+        overflow: 120vh;
+        position: relative;
+        /* margin-top: 50px; */
+    }
+
+    .gallery .right-btn {
+        position: absolute;
+        height: 100%;
+        width: 800px;
+        cursor: pointer;
+        top: 0;
+        right: 0;
+    }
+
+    .gallery .left-btn {
+        position: absolute;
+        height: 100%;
+        width: 300px;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        z-index: 3;
+    }
+
+    .gallery .animate {
+        -webkit-animation: scale 1.6s ease-out;
+        animation: scale 1.6s ease-out;
+    }
+
+    .gallery .instructions {
+        position: absolute;
+        -webkit-writing-mode: vertical-lr;
+        -ms-writing-mode: tb-lr;
+        writing-mode: vertical-lr;
+        font-size: 20px;
+        top: 50vh;
+        right: 20px;
+        -webkit-transform: translateY(-60%);
+        transform: translateY(-60%);
+        opacity: 0.7;
+
+        -webkit-transition: opacity .4s ease-in-out;
+
+        transition: opacity .4s ease-in-out;
+    }
+
+    .gallery .instructions::before {
+        content: "Click";
+    }
+
+
+    .gallery .instructions.remove {
+        opacity: 0;
+    }
+
+    @-webkit-keyframes scale {
+        0% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+
+        30% {
+            -webkit-transform: scale(.9);
+            transform: scale(.9);
+        }
+
+        70% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+
+    @keyframes scale {
+        0% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+
+        30% {
+            -webkit-transform: scale(.9);
+            transform: scale(.9);
+        }
+
+        70% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+
+    .gallery-container {
+
+        height: 100%;
+        width: 400vw;
+
+    }
+
+    .gallery-heading {
+
+        font-family: bitter;
+        font-size: 120px;
+        position: absolute;
+        font-weight: bold;
+        top: 40%;
+        right: 20%;
+
+    }
+
+    .layer {
+        position: absolute;
+        height: 100%;
+        width: 200vw;
+        /* transition: transform 1.6s cubic-bezier(0.54, 0.44, 0, 0.99); */
+        -webkit-transition: -webkit-transform 1.6s cubic-bezier(0.24, 0.89, 0, 0.97);
+        transition: -webkit-transform 1.6s cubic-bezier(0.24, 0.89, 0, 0.97);
+        transition: transform 1.6s cubic-bezier(0.24, 0.89, 0, 0.97);
+        transition: transform 1.6s cubic-bezier(0.24, 0.89, 0, 0.97), -webkit-transform 1.6s cubic-bezier(0.24, 0.89, 0, 0.97);
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+        display: none;
+    }
+
+    .active-layer {
+        display: block;
+    }
+
+    .below-layer {
+        -webkit-transition: -webkit-transform 1.6s cubic-bezier(0.45, 0.43, 0, 0.98);
+        transition: -webkit-transform 1.6s cubic-bezier(0.45, 0.43, 0, 0.98);
+        transition: transform 1.6s cubic-bezier(0.45, 0.43, 0, 0.98);
+        transition: transform 1.6s cubic-bezier(0.45, 0.43, 0, 0.98), -webkit-transform 1.6s cubic-bezier(0.45, 0.43, 0, 0.98);
+    }
+
+    .layer img {
+        -o-object-fit: cover;
+        object-fit: cover;
+        position: absolute;
+        box-shadow: #00000040 0px 0px 11px 10px;
+    }
+
+    .layer .blank-img {
+        position: absolute;
+        background-color: #2f2f2f;
+        box-shadow: #00000040 0px 0px 11px 10px;
+
+    }
+
+    @media(max-width:600px) {
+        .gallery {
+            height: 850px;
+            margin-top: 0;
+            background-color: white;
+        }
+
+        .gallery-heading {
+            font-size: 80px;
+            right: 10px;
+        }
+
+        .gallery .instructions {
+            font-size: 18px;
+            top: 51.5%;
+            right: 62px;
+            -webkit-writing-mode: horizontal-tb;
+            -ms-writing-mode: lr-tb;
+            writing-mode: horizontal-tb;
+            -webkit-transform: none;
+            transform: none;
+        }
+
+        .gallery .instructions::before {
+            content: "Tap";
+        }
+
+        .gallery .left-btn {
+            width: 100px;
+        }
+    }
+</style>
+
+<body>
+    <section class="gallery">
+        <div class="left-btn" onclick="left()"></div>
+        <div class="instructions"><span> to navigate</span></div>
+        <div class="gallery-container">
+
+            <div class="layer below-layer desktop-layer">
+                <img alt="Galley Image" height="600px" data-src="1.jpg" style="left: 65vw;">
+                <img alt="Galley Image" height="400px" width="500px"
+                    style="object-position: bottom; top:-100px; left: 260vw;" data-src="24.jpg">
+                <img alt="Galley Image" height="200px" data-src="2.jpg" style="top:600px; left: 280vw;">
+                <img alt="Galley Image" height="300px" data-src="3.jpg" style="left: 418vw; top:500px ">
+                <img alt="Galley Image" height="300px" data-src="4.jpg" style="left: 475vw; top:300px ">
+                <img alt="Galley Image" height="250px" data-src="5.jpg" style="left: 665vw;top: 450px;">
+                <img alt="Galley Image" height="300px" data-src="6.jpg" style="left: 625vw;top: 492px;">
+
+            </div>
+            <div class="layer below-layer mobile-layer active-layer">
+                <img alt="Galley Image" height="400px" data-src="7.jpg" style="left: 40vw; ">
+                <img alt="Galley Image" height="250px" style="object-position: bottom; left: 220vw;" data-src="8.jpg"
+                    width="400px">
+                <img alt="Galley Image" height="200px" data-src="9.jpg" style="top: 550px;left: 220vw;">
+                <img alt="Galley Image" height="300px" data-src="10.jpg" style="left: 422vw;top: 129px;">
+
+                <img alt="Galley Image" height="200px" data-src="11.jpg" style="top: 550px;left: 600vw;">
+                <img alt="Galley Image" height="200px" data-src="12.jpg" style="left: 622vw;top: 129px;" src="13.jpg"
+                    class="">
+
+            </div>
+
+            <div class="gallery-heading">Clicks by Dilip</div>
+
+            <div class="layer above-layer desktop-layer">
+                <img alt="Galley Image" height="400px" data-src="14.jpg" style="top:350px">
+                <img alt="Galley Image" height="500px" data-src="15.jpg" style="left: 206vw; top:200px ">
+                <img alt="Galley Image" height="350px" width="600px" data-src="16.jpg" style="left: 418vw;; top:50px ">
+                <img alt="Galley Image" height="350px" data-src="17.jpg" style="left: 605vw;top: 100px;">
+                <img alt="Galley Image" height="300px" data-src="18.jpg" style="left: 668vw;top: 10px;">
+            </div>
+            <div class="layer above-layer mobile-layer active-layer">
+                <img alt="Galley Image" data-src="19.jpg" style="top: 550px;  width: 300px;">
+                <img alt="Galley Image" height="250px" data-src="20.jpg" style="left: 190vw; top: 300px;">
+                <img alt="Galley Image" height="250px" data-src="21.jpg" style="left: 390vw;top: 500px;">
+                <img alt="Galley Image" width="300px" data-src="22.jpg" style="left: 610vw;top: 334px;" src="23.jpg"
+                    class="">
+            </div>
+        </div>
+        <div class="right-btn" onclick="right()"></div>
+    </section>
+    <script>
+
+        let desktopLayers = document.querySelectorAll(".desktop-layer");
+        let mobileLayers = document.querySelectorAll(".mobile-layer")
+        checkGallery();
+
+        function checkGallery() {
+            if (window.innerWidth > 600) {
+                desktopLayers[0].classList.add("active-layer")
+                desktopLayers[1].classList.add("active-layer")
+                mobileLayers[0].remove()
+                mobileLayers[1].remove()
+            }
+
+            else {
+                desktopLayers[0].remove()
+                desktopLayers[1].remove()
+                mobileLayers[0].classList.add("active-layer")
+                mobileLayers[1].classList.add("active-layer")
+            }
+        }
+
+        let images = document.querySelectorAll("img[data-src]");
+        images.forEach((x) => {
+            x.src = x.attributes.getNamedItem("data-src").value;
+        })
+
+        let videoObject;
+        function videoSec() {
+            videoObject = document.querySelector('video');
+            let videoLinks = document.querySelectorAll('div[video-src]');
+
+            videoLinks.forEach(videoLink => {
+                videoLink.addEventListener('click', () => {
+                    videoObject.src = videoLink.attributes.getNamedItem("video-src").value;
+                    videoObject.play();
+                    videoLinks.forEach(x => x.classList.remove('active-video'));
+                    videoLink.classList.add('active-video');
+                    let overlay = document.querySelector(".teaser-sec .overlay");
+                    overlay.classList.add("clicked");
+                });
+            });
+        }
+
+        let translateCount = 1;
+        let totalThumb = document.querySelector('.video-list-container').childElementCount;
+
+
+        document.querySelector('.right-arrow').addEventListener('click', () => {
+            let thumbInView = Math.floor(document.querySelector('.video-list').offsetWidth / 320);
+            if (thumbInView * translateCount < totalThumb)
+                document.querySelector('.video-list-container').style = `transform:translate(${320 * thumbInView * (-(++translateCount - 1))}px)`;
+            checkArrowState()
+        });
+
+        document.querySelector('.left-arrow').addEventListener('click', () => {
+            let thumbInView = Math.floor(document.querySelector('.video-list').offsetWidth / 320);
+            if (translateCount > 1)
+                document.querySelector('.video-list-container').style = `transform:translate(${320 * thumbInView * (-(--translateCount - 1))}px)`;
+            checkArrowState();
+        });
+        checkArrowState();
+        function checkArrowState() {
+            if (translateCount > 1)
+                document.querySelector('.left-arrow').classList.remove('deactive-btn');
+            else
+                document.querySelector('.left-arrow').classList.add('deactive-btn');
+
+            let thumbInView = Math.floor(document.querySelector('.video-list').offsetWidth / 320);
+
+            if (thumbInView * translateCount < totalThumb)
+                document.querySelector('.right-arrow').classList.remove('deactive-btn');
+            else
+                document.querySelector('.right-arrow').classList.add('deactive-btn');
+        }
+
+        let isDevCollapsed = false;
+        function Developer() {
+            let devRow = document.querySelector('#team .row');
+            let devSection = document.querySelector("#team");
+            if (isDevCollapsed != true)
+                devSection.style = `height: ${200 + 60 + devRow.offsetHeight}px`;
+            else
+
+                devSection.style = window.innerWidth > 500 ? 'height:200px' : 'height : 140px';
+        }
+        window.addEventListener('resize', Developer);
+        Developer()
+
+
+    </script>
+    <script>
+        let translateVal = 0;
+        let layers = document.querySelectorAll(".layer .active-layer");
+
+
+        function right() {
+            document.querySelector(".instructions").classList.add("remove");
+            layers = document.querySelectorAll(".layer.active-layer");
+            for (let i = 0; i < layers[0].childElementCount; i++) {
+                layers[0].children[i].classList.add("animate")
+            }
+            for (let i = 0; i < layers[1].childElementCount; i++) {
+                layers[1].children[i].classList.add("animate")
+            }
+            document.querySelector(".gallery-heading").classList.add("animate");
+
+            if (translateVal < 3)
+                translateVal++;
+
+            layers[0].style = "-webkit-transform: translateX( -" + 200 * translateVal + "vw); -ms-transform: translateX( -" + 200 * translateVal + "vw);  transform: translateX( -" + 200 * translateVal + "vw);" +
+                "transform-origin:" + translateVal + "px; -webkit-transform-origin:" + translateVal + "px; -ms-transform-origin:" + translateVal + "px;";
+
+            layers[1].style = "transform: translateX( -" + 200 * translateVal + "vw);  -webkit-transform: translateX( -" + 200 * translateVal + "vw); -ms-transform: translateX( -" + 200 * translateVal + "vw);" +
+                "transform-origin:" + translateVal + "px; -ms-transform-origin:" + translateVal + "px; -webkit-transform-origin:" + translateVal + "px;";
+
+            window.setTimeout(() => {
+                for (let i = 0; i < layers[0].childElementCount; i++) {
+                    layers[0].children[i].classList.remove("animate")
+                }
+
+                for (let i = 0; i < layers[1].childElementCount; i++) {
+                    layers[1].children[i].classList.remove("animate")
+                }
+                document.querySelector(".gallery-heading").classList.remove("animate");
+            }, 1600)
+        }
+
+        function left() {
+
+            layers = document.querySelectorAll(".layer.active-layer");
+
+            for (let i = 0; i < layers[0].childElementCount; i++) {
+                layers[0].children[i].classList.add("animate")
+            }
+            for (let i = 0; i < layers[1].childElementCount; i++) {
+                layers[1].children[i].classList.add("animate")
+            }
+            document.querySelector(".gallery-heading").classList.add("animate");
+
+            if (translateVal > 0)
+                translateVal--;
+            if (translateVal == 0)
+                document.querySelector(".instructions").classList.remove("remove");
+            layers[0].style = "-webkit-transform: translateX( -" + 200 * translateVal + "vw); -ms-transform: translateX( -" + 200 * translateVal + "vw);  transform: translateX( -" + 200 * translateVal + "vw);" +
+                "transform-origin:" + translateVal + "px; -webkit-transform-origin:" + translateVal + "px; -ms-transform-origin:" + translateVal + "px;";
+
+            layers[1].style = "transform: translateX( -" + 200 * translateVal + "vw);  -webkit-transform: translateX( -" + 200 * translateVal + "vw); -ms-transform: translateX( -" + 200 * translateVal + "vw);" +
+                "transform-origin:" + translateVal + "px; -ms-transform-origin:" + translateVal + "px; -webkit-transform-origin:" + translateVal + "px;";
+
+
+            window.setTimeout(() => {
+                for (let i = 0; i < layers[0].childElementCount; i++) {
+                    layers[0].children[i].classList.remove("animate")
+                }
+
+                for (let i = 0; i < layers[1].childElementCount; i++) {
+                    layers[1].children[i].classList.remove("animate")
+                }
+                document.querySelector(".gallery-heading").classList.remove("animate");
+
+            }, 1600)
+        }
+    </script>
+</body>
+
+</html>
